@@ -1,0 +1,1 @@
+* */3 * * * . /etc/profile;/bin/sh /Users/dushuanglong/learn/ELK/docker-elk/es-index-clear.sh
