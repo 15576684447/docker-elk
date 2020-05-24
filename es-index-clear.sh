@@ -3,6 +3,9 @@ searchIndex=logs
 elastic_url=localhost
 elastic_port=9200
 persist_days=1
+stdout=`pwd`/stdout.log
+echo $stdout
+touch $stdout
 
 date2stamp () {
     date --utc --date "$1" +%s
@@ -30,7 +33,7 @@ for index in $(curl -s "${elastic_url}:${elastic_port}/_cat/indices?v" | grep -E
   diff=$(dateDiff -d $date $cond)
   echo -n "${index} (${diff})"
   if [ $diff -gt $persist_days ]; then
-    echo "DELETE index $index"
+    echo "DELETE index $index" >> $stdout
     curl -XDELETE "${elastic_url}:${elastic_port}/${index}?pretty"
   fi
 done
